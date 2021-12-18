@@ -167,7 +167,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                      //reset the local notification message
                      self.localNotification.text = ""
                      //adjust total time in case if cancel before time is finished
-                     self.totalTime -= self.seconds * 60
+                     self.totalTime -= self.seconds/60
+                     self.totalTimeLabel.text = "Total Time: \(Int(self.totalTime))"
                      self.timerCount?.invalidate()
                      self.isActive = false
                      

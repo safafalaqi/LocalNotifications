@@ -9,12 +9,14 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate , UNUserNotificationCenterDelegate{
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
 
@@ -76,6 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    willPresent notification: UNNotification,
+                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+         print("Local notification received in foreground.")
+         completionHandler([.alert, .sound, .badge])
+    }
+    
+    // set orientations you want to be allowed in this property by default
+    var orientationLock = UIInterfaceOrientationMask.portrait
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+            return self.orientationLock
+    }
 }
 
